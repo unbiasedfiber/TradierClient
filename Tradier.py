@@ -67,7 +67,3 @@ class TradierClient(object):
         headers = {"Accept":"application/json",
                    "Authorization":"Bearer {}".format(self.key)}
         return self._get(url, headers, params)
-
-if __name__ == "__main__":
-    t = TradierClient('2FCuk6CNhHkDObWZcUzBKGg1pVR7', True)
-    print(t.get_expirations("APHA", True, False).text)
