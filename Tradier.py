@@ -40,7 +40,7 @@ class TradierClient(object):
             params = { "symbol" : symbol,
                        "expiration" : date}
             headers = {"Accept":"application/json",
-                       "Authorization":"Bearer {}".format(self.key)}
+                       "Authorization":f"Bearer {self.key}"}
             return self._get(url, headers, params)
 
     def get_option_strikes(self, symbol, date):
@@ -49,14 +49,14 @@ class TradierClient(object):
             params = { "symbol" : symbol,
                        "expiration" : date}
             headers = {"Accept":"application/json",
-                       "Authorization":"Bearer {}".format(self.key)}
+                       "Authorization":f"Bearer {self.key}"}
             return self._get(url, headers, params)
 
     def get_quote(self, *symbols):
         url = '/v1/markets/quotes'
         params = { "symbols":",".join(symbols) }
         headers = {"Accept":"application/json",
-                   "Authorization":"Bearer {}".format(self.key)}
+                   "Authorization":f"Bearer {self.key}"}
         return self._get(url, headers, params)
 
     def get_expirations(self, symbol, includeAllRoots, add_strikes):
@@ -65,5 +65,5 @@ class TradierClient(object):
                    "includeAllRoots":str(includeAllRoots).lower(),
                    "strikes":str(add_strikes).lower()}
         headers = {"Accept":"application/json",
-                   "Authorization":"Bearer {}".format(self.key)}
+                   "Authorization":f"Bearer {self.key}"}
         return self._get(url, headers, params)
