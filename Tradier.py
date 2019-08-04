@@ -39,7 +39,7 @@ class TradierClient(object):
             url = '/v1/markets/options/chains'
             params = { "symbol" : symbol,
                        "expiration" : date}
-            headers = {"Accept":"application/json",
+            headers = {"Accept" : "application/json",
                        "Authorization":f"Bearer {self.key}"}
             return self._get(url, headers, params)
 
@@ -48,22 +48,22 @@ class TradierClient(object):
             url = '/v1/markets/options/strikes'
             params = { "symbol" : symbol,
                        "expiration" : date}
-            headers = {"Accept":"application/json",
-                       "Authorization":f"Bearer {self.key}"}
+            headers = {"Accept" : "application/json",
+                       "Authorization" : f"Bearer {self.key}"}
             return self._get(url, headers, params)
 
     def get_quote(self, *symbols):
         url = '/v1/markets/quotes'
-        params = { "symbols":",".join(symbols) }
-        headers = {"Accept":"application/json",
-                   "Authorization":f"Bearer {self.key}"}
+        params = { "symbols" : ",".join(symbols) }
+        headers = {"Accept" : "application/json",
+                   "Authorization" : f"Bearer {self.key}"}
         return self._get(url, headers, params)
 
     def get_expirations(self, symbol, includeAllRoots, add_strikes):
         url = '/v1/markets/options/expirations'
-        params = { "symbol":symbol,
-                   "includeAllRoots":str(includeAllRoots).lower(),
-                   "strikes":str(add_strikes).lower()}
-        headers = {"Accept":"application/json",
-                   "Authorization":f"Bearer {self.key}"}
+        params = { "symbol" : symbol,
+                   "includeAllRoots" : str(includeAllRoots).lower(),
+                   "strikes" : str(add_strikes).lower()}
+        headers = {"Accept" : "application/json",
+                   "Authorization" : f"Bearer {self.key}"}
         return self._get(url, headers, params)
