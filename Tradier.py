@@ -21,7 +21,7 @@ class TradierClient(object):
 
     def _handle_response(self, response):
         if response.ok:
-            return response
+            return json.loads(response.text)
         elif response.status_code >= 500:
             print("Status code : " + str(response.status_code) + "\n",
                   "Serverside error")
@@ -33,6 +33,10 @@ class TradierClient(object):
     def _valid_date(self, date):
         if re.match(r'\d{4}-\d{2}-\d{2}', date): return True
         else: print("Enter date argument as yyyy-mm-dd")
+
+    def _valid_interval(self, interval):
+        if interval in ["daily", "weekly", "monthly"]: return True
+        else: print("Enter interval period as 'daily', 'weekly' or 'monthly'")
 
     def get_option_chain(self, symbol, date):
         if self._valid_date(date):
@@ -67,3 +71,16 @@ class TradierClient(object):
         headers = {"Accept" : "application/json",
                    "Authorization" : f"Bearer {self.key}"}
         return self._get(url, headers, params)
+
+    def get_quote_history(self, symbol, interval, start_date, end_date):
+        if (self._valid_date(start_date) and \
+            self._valid_date(end_date) and \
+            self._valid_interval(interval)):
+            url = '/v1/markets/history'
+            params = { "symbol" : symbol,
+                       "interval" : interval,
+                       "start" : start_date,
+                       "end" : end_date }
+            headers = {"Accept" : "application/json",
+                       "Authorization" : f"Bearer {self.key}"}
+            return self._get(url, headers, params)
